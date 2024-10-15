@@ -16,7 +16,7 @@
         wait_for_ip_address: true
 
 - name: Set VM IP and Hostname
-  hosts: 10.10.5.73 # This is the IP that is set for the template, if you use a different IP update here.
+  hosts: gateway # This is the IP that is set for the template, if you use a different IP update here.
   tasks:
 
     - name: Update Hostname
@@ -31,33 +31,3 @@
       ansible.builtin.pause:
         seconds: "10"
         
-    - name: get netplan config file
-      slurp:
-        src: "/etc/netplan/00-installer-config.yaml"
-      register: remote_content_encoded
-
-    - name: decode netplan config file content and convert from yaml to json
-      set_fact:
-        netplan_config_file_content: "{{ remote_content_encoded.content | b64decode | from_yaml }}"
-
-    - name: append routes to netplan config file content
-      set_fact:
-        netplan_config_file_content: "{{ netplan_config_file_content | default({}) | combine({'network': {'ethernets': {'ens160': {'addresses': '- {{ new_IP }}'}}}}, recursive=true) }}"
-      
-
-    - name: update netplan config file
-      copy:
-        content: "{{ netplan_config_file_content | to_nice_yaml }}"
-        dest: "/etc/netplan/00-installer-config.yaml"
-        backup: yes
-        mode: 0644
-        owner: root
-        group: root
-      notify: netplan apply
-  
-  handlers:
-  - name: netplan apply
-    shell:
-      cmd: netplan apply
-    async: 45
-    poll: 0
