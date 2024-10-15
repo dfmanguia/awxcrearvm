@@ -22,7 +22,7 @@
       ansible.builtin.lineinfile:
         path: /etc/netplan/00-installer-config.yaml
         regex: "- 10.10.5.73/28" # Set to same IP as line 19
-        line: "addresses={{ new_IP }}"
+        line: "- {{ new_IP }}"
 
     - name: Update Hostname
       ansible.builtin.hostname:
