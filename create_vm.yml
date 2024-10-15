@@ -20,6 +20,8 @@
 
 - name: Set VM IP and Hostname
   hosts: 172.30.210.160 # This is the IP that is set for the template, if you use a different IP update here.
+  become: true
+  become_method: enable
   tasks:
 
     - name: Update Hostname
