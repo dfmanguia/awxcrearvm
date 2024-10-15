@@ -24,7 +24,7 @@
 
     - name: Update Hostname
       ansible.builtin.hostname:
-        name: "{{ hostname }}.domain.local" # Update domain
+        name: "{{ hostname }}" # Update domain
 
     - name: Reboot
       ansible.builtin.command: "init 6"
