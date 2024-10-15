@@ -16,7 +16,7 @@
         wait_for_ip_address: true
 
 - name: Set VM IP and Hostname
-  hosts: 172.30.210.157 # This is the IP that is set for the template, if you use a different IP update here.
+  hosts: 172.30.210.160 # This is the IP that is set for the template, if you use a different IP update here.
   tasks:
 
     - name: Update Hostname
