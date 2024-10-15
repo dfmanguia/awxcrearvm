@@ -16,13 +16,13 @@
         wait_for_ip_address: true
 
 - name: Set VM IP and Hostname
-  hosts: 172.16.1.200 # This is the IP that is set for the template, if you use a different IP update here.
+  hosts: 10.10.5.73/28 # This is the IP that is set for the template, if you use a different IP update here.
   tasks:
     - name: Update IP
       ansible.builtin.lineinfile:
-        path: /etc/sysconfig/network-scripts/ifcfg-ens192
-        regex: "IPADDR=172.16.1.200" # Set to same IP as line 19
-        line: "IPADDR={{ new_IP }}"
+        path: /etc/netplan/00-installer-config.yaml
+        regex: "addresses=10.10.5.73/28" # Set to same IP as line 19
+        line: "addresses={{ new_IP }}"
 
     - name: Update Hostname
       ansible.builtin.hostname:
