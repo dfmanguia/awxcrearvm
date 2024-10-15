@@ -8,10 +8,10 @@
       community.vmware.vmware_guest:
         validate_certs: false
         name: "{{ vm_name }}"
-        template: testdmtemplate
+        template: plantilla_helper
         datacenter: DCUIO
         resource_pool: # Input Resource Pool
-        folder: "/"
+        folder: "/DCUIO/vm/AWX"
         state: poweredon
         wait_for_ip_address: true
 
