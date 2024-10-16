@@ -27,7 +27,13 @@
       
       ansible.builtin.hostname:
         name: "{{ hostname }}" # Update domain
-
+        
+    - name: Update IP
+      ansible.builtin.lineinfile:
+        path: /etc/netplan/00-installer-config.yaml
+        regex: "- 172.30.210.160/23" # Set to same IP as line 19
+        line: "- {{ new_IP }}/23"
+        
     - name: Reboot
       ansible.builtin.command: "init 6"
       ignore_errors: true
