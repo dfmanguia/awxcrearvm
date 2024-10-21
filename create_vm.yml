@@ -24,7 +24,6 @@
             ip: "{{ vm_ipsan }}"
             netmask: "{{ vm_net_mask_san }}"
         customization:
-          domain: lab.local
           dns_servers:
           - "{{ vm_net_dns }}"
     - name: Pause for 120 seconds to wait for reboot
