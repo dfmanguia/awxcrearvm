@@ -15,7 +15,8 @@
         state: poweredon
         wait_for_ip_address: true
         networks:
-          - name: "{{ vm_net_name }}"
+          - name: "{{ vm_net_namelan }}"
+          - name: "{{ vm_net_namesan }}"
     - name: Pause for 120 seconds to wait for reboot
       ansible.builtin.pause:
         seconds: "120"
