@@ -26,6 +26,10 @@
         customization:
           dns_servers:
           - "{{ vm_net_dns }}"
+          
+    - name: Pause for 30 seconds to wait for reboot
+      ansible.builtin.pause:
+        seconds: "120"
     
 
 
