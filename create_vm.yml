@@ -53,6 +53,18 @@
         path: /etc/bind/named.conf.options
         regex: "10.10.5.65/28" # Set to same IP as line 19
         line: "        allow-recursion { {{ vm_iplan }}/{{ new_prefix }}; };"
+
+    - name: Update namedlocal
+      ansible.builtin.lineinfile:
+        path: /etc/bind/named.conf.local
+        regex: "vlan110" # Set to same IP as line 19
+        line: "zone "{{ fqdn_nas }}" IN {"
+
+    - name: Update fwrds
+      ansible.builtin.lineinfile:
+        path: /etc/bind/named.conf.local
+        regex: "172.16.138.127" # Set to same IP as line 19
+        line: "        forwarders { {{ new_fwrds }} ; };"
         
     - name: Reboot
       ansible.builtin.command: "init 6"
