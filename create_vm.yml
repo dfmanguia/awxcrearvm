@@ -14,19 +14,24 @@
         folder: "/DCUIO/vm/AWX"
         state: poweredon
         wait_for_ip_address: true
-    - name: Pause for 120 seconds to wait for reboot
-      ansible.builtin.pause:
-        seconds: "120"
+        wait_for_customization: true
+        networks:
+          - name: "{{ vm_net_namelan }}"
+            ip: "{{ vm_iplan }}"
+            netmask: "{{ vm_net_mask_lan }}"
+            gateway: "{{ vm_net_gw }}"
+          - name: "{{ vm_net_namesan }}"
+            ip: "{{ vm_ipsan }}"
+            netmask: "{{ vm_net_mask_san }}"
+        customization:
+          dns_servers:
+          - "{{ vm_net_dns }}"
+
 
 - name: Set VM IP and Hostname
-  hosts: 172.30.210.160 # This is the IP that is set for the template, if you use a different IP update here.
+  hosts: "{{ vm_iplan }}" # This is the IP that is set for the template, if you use a different IP update here.
   become: true
   tasks:
-
-    - name: Update Hostname
-      
-      ansible.builtin.hostname:
-        name: "{{ hostname }}" # Update domain
         
     - name: Update IP escucha
       ansible.builtin.lineinfile:
