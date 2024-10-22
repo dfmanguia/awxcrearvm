@@ -14,6 +14,7 @@
         folder: "/DCUIO/vm/AWX"
         state: poweredon
         wait_for_ip_address: true
+        wait_for_customization: true
         networks:
           - name: "{{ vm_net_namelan }}"
             ip: "{{ vm_iplan }}"
