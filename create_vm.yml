@@ -24,31 +24,9 @@
             ip: "{{ vm_ipsan }}"
             netmask: "{{ vm_net_mask_san }}"
             dns_servers: "{{ vm_net_dns }}"
-    - name: Pause for 120 seconds to wait for reboot
-      ansible.builtin.pause:
-        seconds: "120"
+        customization:
+          dns_servers:
+          - "{{ vm_net_dns }}"
+        wait_for_ip_address: yes
+        wait_for_customization: yes
 
-- name: Set VM IP and Hostname
-  hosts: 172.30.210.160 # This is the IP that is set for the template, if you use a different IP update here.
-  become: true
-  tasks:
-
-    - name: Update Hostname
-      
-      ansible.builtin.hostname:
-        name: "{{ hostname }}" # Update domain
-        
-    - name: Update IP
-      ansible.builtin.lineinfile:
-        path: /etc/netplan/00-installer-config.yaml
-        regex: "- 172.30.210.160/23" # Set to same IP as line 19
-        line: "        - {{ new_IP }}/23"
-        
-    - name: Reboot
-      ansible.builtin.command: "init 6"
-      ignore_errors: true
-
-    - name: Pause for 30 seconds to wait for reboot
-      ansible.builtin.pause:
-        seconds: "10"
-        
