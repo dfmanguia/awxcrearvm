@@ -58,7 +58,7 @@
       ansible.builtin.lineinfile:
         path: /etc/bind/named.conf.local
         regex: "vlan110" # Set to same IP as line 19
-        line: "zone "{{ fqdn_nas }}" IN {"
+        line: "zone "{{ fqdn_nas }}" IN \{"
 
     - name: Update fwrds
       ansible.builtin.lineinfile:
