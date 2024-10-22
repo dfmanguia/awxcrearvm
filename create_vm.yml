@@ -37,13 +37,13 @@
       ansible.builtin.lineinfile:
         path: /etc/bind/named.conf.options
         regex: "10.10.5.73" # Set to same IP as line 19
-        line: "{{ new_IP }}"
+        line: "{{ vm_iplan }}"
         
     - name: Update red origen
       ansible.builtin.lineinfile:
         path: /etc/bind/named.conf.options
         regex: "10.10.5.64/28" # Set to same IP as line 19
-        line: "{{ new_IP }}/{{ new_prefix }}"
+        line: "{{ vm_iplan }}/{{ new_prefix }}"
         
     - name: Reboot
       ansible.builtin.command: "init 6"
