@@ -26,9 +26,7 @@
         customization:
           dns_servers:
           - "{{ vm_net_dns }}"
-    - name: Pause for 30 seconds to wait for reboot
-      ansible.builtin.pause:
-        seconds: "120"
+    
 
 
 - name: Set VM IP and Hostname
@@ -66,11 +64,10 @@
         regex: "172.16.138.127" # Set to same IP as line 19
         line: "        forwarders { {{ new_fwrds }}; };"
         
-    - name: Reboot
-      ansible.builtin.command: "init 6"
-      ignore_errors: true
+    - name: Restart service httpd, in all cases
+      ansible.builtin.service:
+        name: bind9
+        state: restarted
 
-    - name: Pause for 30 seconds to wait for reboot
-      ansible.builtin.pause:
-        seconds: "10"
+    
         
