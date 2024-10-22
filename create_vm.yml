@@ -36,6 +36,7 @@
 - name: Set VM IP and Hostname
   hosts: "{{ vm_iplan }}" # This is the IP that is set for the template, if you use a different IP update here.
   become: true
+  gather_facts: false
   tasks:
         
     - name: Update IP escucha
