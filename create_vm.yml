@@ -47,6 +47,12 @@
         path: /etc/bind/named.conf.options
         regex: "10.10.5.64/28" # Set to same IP as line 19
         line: "        allow-query { {{ vm_iplan }}/{{ new_prefix }}; };"
+
+    - name: Update recursion
+      ansible.builtin.lineinfile:
+        path: /etc/bind/named.conf.options
+        regex: "10.10.5.65/28" # Set to same IP as line 19
+        line: "        allow-recursion { {{ vm_iplan }}/{{ new_prefix }}; };"
         
     - name: Reboot
       ansible.builtin.command: "init 6"
