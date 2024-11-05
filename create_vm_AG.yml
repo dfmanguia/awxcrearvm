@@ -23,6 +23,10 @@
           - name: "{{ vm_net_namesan }}"
             ip: "{{ vm_ipsan }}"
             netmask: "{{ vm_net_mask_san }}"
+          - name: "{{ vm_net_namemgmt }}"
+            ip: "{{ vm_ipmgmt }}"
+            netmask: "{{ vm_net_mask_mgmt }}"
+            
         customization:
           dns_servers:
           - "{{ vm_net_dns }}"
@@ -34,7 +38,7 @@
 
 
 - name: Set VM IP and Hostname
-  hosts: "{{ vm_iplan }}" # This is the IP that is set for the template, if you use a different IP update here.
+  hosts: "{{ vm_ipmgmt }}" # This is the IP that is set for the template, if you use a different IP update here.
   become: true
   gather_facts: false
   tasks:
